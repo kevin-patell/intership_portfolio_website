@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Portfolio</title>
+  <meta name="description" content="Responsive portfolio website showcasing projects, skills and contact." />
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --max-width:1100px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      scroll-behavior: smooth;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071022 0%, #0b1220 100%);color:#e6eef6}
+    a{color:inherit;text-decoration:none}
+
+    .container{max-width:var(--max-width);margin:0 auto;padding:36px 20px}
+
+    /* NAV */
+    header{position:sticky;top:0;backdrop-filter: blur(6px);z-index:60}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:grid;place-items:center;font-weight:700;color:#082020}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    nav a{padding:8px 10px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav a.active, nav a:hover{background:var(--glass);color:var(--accent)}
+
+    .cta{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(110,231,183,0.12);color:var(--accent);font-weight:700}
+
+    /* mobile menu */
+    .hamburger{display:none;background:transparent;border:0;color:var(--muted);font-size:22px}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;padding:64px 0}
+    .hero h1{font-size:34px;margin:0 0 12px;line-height:1.05}
+    .hero p{color:var(--muted);margin:0 0 20px}
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,0.03)}
+    .profile-img{width:100%;height:100%;border-radius:12px;object-fit:cover}
+
+    /* ABOUT */
+    .about{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;padding:36px 0}
+    .about p{color:var(--muted);line-height:1.6}
+
+    /* PROJECTS */
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
+    .project{border-radius:12px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .project img{width:100%;height:160px;object-fit:cover;display:block}
+    .project .pbody{padding:14px}
+    .project h3{margin:0 0 8px;font-size:16px}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+    .project .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
+
+    /* CONTACT */
+    .contact{display:grid;grid-template-columns:1fr 380px;gap:20px;padding:36px 0}
+    form{display:flex;flex-direction:column;gap:12px}
+    input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:10px;color:inherit;font-size:14px}
+    button[type="submit"]{padding:12px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#60a5fa);color:#062023;font-weight:800}
+
+    footer{padding:22px 0;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,0.02)}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .about{grid-template-columns:1fr}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+      .contact{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      nav ul{display:none}
+      .hamburger{display:block}
+      .projects-grid{grid-template-columns:1fr}
+      .hero h1{font-size:28px}
+      header .container{padding:12px 16px}
+    }
+
+    /* accessible focus */
+    a:focus,button:focus,input:focus,textarea:focus{outline:2px solid rgba(110,231,183,0.18);outline-offset:2px}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-wrap">
+      <div class="brand">
+        <div class="logo">KP</div>
+        <div>
+          <div style="font-weight:800">Kevin Patel</div>
+          <div style="font-size:12px;color:var(--muted)">Frontend Developer</div>
+        </div>
+      </div>
+
+      <nav>
+        <button class="hamburger" aria-label="open menu">☰</button>
+        <ul>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div><a class="cta" href="#contact">Hire me</a></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="hero" aria-label="Home">
+      <div>
+        <h1>Responsive portfolio<span style="color:var(--accent)"> — clean, modern, responsive</span></h1>
+        <p>I build user-focused interfaces with attention to performance, accessibility and simple design. I enjoy turning ideas into polished web experiences.</p>
+
+        <div class="skills">
+          <div class="chip">HTML</div>
+          <div class="chip">CSS</div>
+          <div class="chip">JavaScript</div>
+          <div class="chip">Responsive Design</div>
+          <div class="chip">Accessibility</div>
+        </div>
+
+        <div style="margin-top:20px;display:flex;gap:12px">
+          <a href="#projects" class="cta">See projects</a>
+          <a href="#contact" class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">Contact</a>
+        </div>
+      </div>
+
+      <aside class="card" aria-hidden="true">
+        <img class="profile-img" src="https://picsum.photos/seed/profile/600/600" alt="Profile image" />
+      </aside>
+    </section>
+
+    <section id="about" class="about" aria-label="About me">
+      <div>
+        <h2>About me</h2>
+        <p>I am a frontend developer who focuses on building accessible and responsive interfaces. I like to keep designs minimal while ensuring high usability. My workflow includes designing, prototyping, and shipping production-ready code.</p>
+
+        <h3 style="margin-top:18px">What I bring</h3>
+        <ul style="color:var(--muted);line-height:1.7">
+          <li>Semantic HTML and modern CSS layout (Flexbox, Grid)</li>
+          <li>Vanilla JavaScript for interactivity and performance</li>
+          <li>Responsive layouts and cross-device testing</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3 style="margin:0 0 10px">Quick facts</h3>
+          <p style="color:var(--muted);margin:0 0 12px">Based in India · Available for freelance · Open to collaborations</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div class="chip">5+ Projects</div>
+            <div class="chip">React basics</div>
+            <div class="chip">Performance-minded</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid" aria-live="polite">
+
+        <article class="project card">
+          <img src="https://picsum.photos/seed/proj1/900/600" alt="Project 1 screenshot"/>
+          <div class="pbody">
+            <h3>Project One — Movie Finder</h3>
+            <p>An interactive app that searches movies using an API, supports pagination and client-side caching.</p>
+            <div class="tags">
+              <div class="tag">HTML</div>
+              <div class="tag">CSS</div>
+              <div class="tag">JavaScript</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project card">
+          <img src="https://picsum.photos/seed/proj2/900/600" alt="Project 2 screenshot"/>
+          <div class="pbody">
+            <h3>Project Two — E‑commerce UI</h3>
+            <p>A responsive storefront prototype with product filters, cart UI and mobile-first interactions.</p>
+            <div class="tags">
+              <div class="tag">Responsive</div>
+              <div class="tag">UI</div>
+              <div class="tag">Accessibility</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project card">
+          <img src="https://picsum.photos/seed/proj3/900/600" alt="Project 3 screenshot"/>
+          <div class="pbody">
+            <h3>Project Three — Portfolio Generator</h3>
+            <p>A small generator that creates portfolio pages from a JSON file — useful for quick demos.</p>
+            <div class="tags">
+              <div class="tag">JavaScript</div>
+              <div class="tag">Template</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div>
+        <h2>Contact</h2>
+        <p style="color:var(--muted)">Have a project or want to say hi? Fill the form below and I will get back to you.</p>
+
+        <form onsubmit="event.preventDefault();alert('Demo only — replace with your backend or Netlify Forms.');">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+          <button type="submit">Send message</button>
+        </form>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Get in touch</h3>
+          <p style="color:var(--muted)">Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+          <p style="color:var(--muted)">Twitter: <a href="#">@yourhandle</a> · GitHub: <a href="#">github.com/username</a></p>
+        </div>
+      </aside>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Kevin Patel · Built with HTML, CSS & JavaScript</div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // nav active state on scroll
+    const links = document.querySelectorAll('.nav-link');
+    const sections = [...document.querySelectorAll('main section')];
+
+    const setActive = () => {
+      const y = window.scrollY + 120;
+      let idx = sections.findIndex(s => s.offsetTop + s.offsetHeight > y);
+      if(idx === -1) idx = sections.length -1;
+      links.forEach(l => l.classList.remove('active'));
+      if(links[idx]) links[idx].classList.add('active');
+    }
+    window.addEventListener('scroll', setActive);
+    setActive();
+
+    // mobile menu toggling
+    const ham = document.querySelector('.hamburger');
+    ham.addEventListener('click', ()=>{
+      const ul = document.querySelector('nav ul');
+      ul.style.display = ul.style.display === 'flex' ? 'none' : 'flex';
+      ul.style.flexDirection = 'column';
+      ul.style.position = 'absolute';
+      ul.style.right = '20px';
+      ul.style.top = '70px';
+      ul.style.background = 'rgba(8,12,20,0.9)';
+      ul.style.padding = '12px';
+      ul.style.borderRadius = '10px';
+    });
+
+    // close mobile menu when link clicked
+    document.querySelectorAll('nav a').forEach(a=> a.addEventListener('click', ()=>{
+      if(window.innerWidth <= 640) document.querySelector('nav ul').style.display = 'none';
+    }));
+  </script>
+</body>
+</html>
